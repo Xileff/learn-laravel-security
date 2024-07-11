@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/users/login', [UserController::class, 'login']);
+
 Route::get('/users/current', [UserController::class, 'current'])->middleware(['auth']);
+// by default, middleware auth pake guard web (di config/auth.php), di mana data user disimpan di session
+
+Route::get('/api/users/current', [UserController::class, 'current'])->middleware(['auth:token']);
+// pake custom guard (token) yg ada di AppServiceProvider
 
 Route::get('/', function () {
     return view('welcome');
