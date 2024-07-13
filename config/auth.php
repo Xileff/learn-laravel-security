@@ -40,6 +40,10 @@ return [
             'driver' => 'token',
             'provider' => 'users'
         ],
+        'simple-token' => [
+            'driver' => 'token',
+            'provider' => 'simple-provider'
+        ],
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -68,6 +72,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'simple-provider' => [
+            'driver' => 'simple',
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

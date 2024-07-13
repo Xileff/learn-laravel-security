@@ -2,11 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\ServiceProvider;
-use App\Providers\Guard\TokenGuard;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,13 +20,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Auth::extend('token', function (Application $app, string $name, array $config) {
-            $tokenGuard = new TokenGuard(
-                Auth::createUserProvider($config['provider']),
-                $app->make(Request::class)
-            );
-            $app->refresh('request', $tokenGuard, 'setRequest');
-            return $tokenGuard;
-        });
     }
 }

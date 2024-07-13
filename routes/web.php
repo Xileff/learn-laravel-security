@@ -28,6 +28,7 @@ Route::get('/api/users/current', [UserController::class, 'current'])->middleware
 4. Logic dari TokenGuard dijalanin, yaitu cek user berdasarkan field 'token' di db
   4.a. Kenapa yg dicek adalah tabel 'users'? karena provider utk guard 'token' adalah 'users', ini ada di config/auth.php
 */
+Route::get('/simple-api/users/current', [UserController::class, 'current'])->middleware(['auth:simple-token']);
 
 Route::get('/', function () {
     return view('welcome');
