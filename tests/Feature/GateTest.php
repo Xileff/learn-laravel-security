@@ -53,4 +53,16 @@ class GateTest extends TestCase
         self::assertTrue($gate->any(['get-contact', 'update-contact', 'delete-contact'], $contact));
         self::assertFalse($gate->none(['get-contact', 'update-contact', 'delete-contact'], $contact));
     }
+
+    public function testGateResponse()
+    {
+        $this->seed([UserSeeder::class, ContactSeeder::class]);
+
+        $user = User::where('name', 'felix')->first();
+        Auth::login($user);
+
+        $response = Gate::inspect('create-contact');
+        self::assertFalse($response->allowed());
+        self::assertEquals('You are not admin', $response->message());
+    }
 }
