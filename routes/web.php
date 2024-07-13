@@ -18,10 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/users/login', [UserController::class, 'login']);
 
 Route::get('/users/current', [UserController::class, 'current'])->middleware(['auth']);
-// by default, middleware auth pake guard web (di config/auth.php), di mana data user disimpan di session
+// By default, middleware auth pake guard 'web' (di config/auth.php), sehingga data user disimpan di session
 
 Route::get('/api/users/current', [UserController::class, 'current'])->middleware(['auth:token']);
-// pake custom guard (token) yg ada di AppServiceProvider
+// Pake custom guard (token) yg ada di AppServiceProvider
+/* Flow pengecekan token pada request header :
+1. Custom guard di middleware 'auth' pada route ini adalah 'token'
+2. Masuk ke 'Auth extend token' di AppServiceProvider
+4. Logic dari TokenGuard dijalanin, yaitu cek user berdasarkan field 'token' di db
+  4.a. Kenapa yg dicek adalah tabel 'users'? karena provider utk guard 'token' adalah 'users', ini ada di config/auth.php
+*/
 
 Route::get('/', function () {
     return view('welcome');
