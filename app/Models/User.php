@@ -44,13 +44,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    /**
-     * Get all of the contacts for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function contacts(): HasMany
     {
         return $this->hasMany(Contact::class, 'user_id', 'id');
+    }
+
+    public function todos(): HasMany
+    {
+        return $this->hasMany(Todo::class, 'user_id', 'id');
     }
 }
