@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Providers\Guard\TokenGuard;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use SimpleProvider;
+use App\Providers\User\SimpleProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {

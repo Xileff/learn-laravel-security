@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Providers\User;
+
 use Illuminate\Auth\GenericUser;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
