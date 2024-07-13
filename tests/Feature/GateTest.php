@@ -27,4 +27,30 @@ class GateTest extends TestCase
         self::assertTrue(Gate::allows('update-contact', $contact));
         self::assertTrue(Gate::allows('delete-contact', $contact));
     }
+
+    public function testGateMethod()
+    {
+        $this->seed([UserSeeder::class, ContactSeeder::class]);
+
+        $user = User::where('email', 'felix@localhost')->first();
+        Auth::login($user);
+
+        $contact = Contact::where('email', 'test@localhost')->first();
+
+        self::assertTrue(Gate::any(['get-contact', 'update-contact', 'delete-contact'], $contact));
+        self::assertFalse(Gate::none(['get-contact', 'update-contact', 'delete-contact'], $contact));
+    }
+
+    public function testGateUser()
+    {
+        $this->seed([UserSeeder::class, ContactSeeder::class]);
+
+        $user = User::where('email', 'felix@localhost')->first();
+        $gate = Gate::forUser($user);
+
+        $contact = Contact::where('email', 'test@localhost')->first();
+
+        self::assertTrue($gate->any(['get-contact', 'update-contact', 'delete-contact'], $contact));
+        self::assertFalse($gate->none(['get-contact', 'update-contact', 'delete-contact'], $contact));
+    }
 }
